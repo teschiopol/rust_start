@@ -1,21 +1,53 @@
 use std::io; // I/O library come from standard library
+use rand::Rng;
+use std::cmp::Ordering;
 
 fn main() {
     println!("Guess the number!");
 
-    println!("Please input your guess.");
+    let secret_number = rand::thread_rng().gen_range(1..=100);
 
-    let mut guess = String::new(); // add mut because by default variables are immutable
+    let mut count = 0;
 
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to read line"); // Manage 'Err' result case
+    loop { // like a while
 
-    println!("You guessed: {guess}");
-    /*
-    * println!("x = {} and y = {}", x, y);
-    * Another solution for placeholder print
-    */
+        println!("Please input your guess.");
+
+        let mut guess = String::new(); // add mut because by default variables are immutable
+
+        io::stdin()
+            .read_line(&mut guess)
+            .expect("Failed to read line"); // Manage 'Err' result case
+
+        println!("You guessed: {guess}");
+
+        let guess : u32 = match guess.trim().parse() {    // parse() convert str to number, in our case unsigned 32
+            Ok(num) => num,
+            Err(_) => continue,
+        };     
+
+        count += 1;            
+
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You win!");
+                break;
+            }
+        }
+
+        if count == 3 {
+            println!("The secret number was: {secret_number}");
+            println!("You lose!");
+            break;
+        }
+
+        /*
+        * println!("x = {} and y = {}", x, y);
+        * Another solution for placeholder print
+        */
+    }
 }
 
 // cargo run
