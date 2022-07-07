@@ -1,3 +1,5 @@
+![Build](https://github.com/teschiopol/rust_start/actions/workflows/rust.yml/badge.svg)
+
 # 🚀 Rust_start
 Basic demo and start to learn Rust
 
