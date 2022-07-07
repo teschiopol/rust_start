@@ -2,6 +2,22 @@ use std::io; // I/O library come from standard library
 use rand::Rng;
 use std::cmp::Ordering;
 
+fn check_side_min(secret_number: u32, guess: u32) -> String {
+    let diff = (100 - guess)/2;
+    if (guess + diff) < secret_number{
+        return "Side up!".to_string();
+    }
+    return "Side down".to_string();
+}
+
+fn check_side_max(secret_number: u32, guess: u32) -> String {
+    let diff = guess/2;
+    if (guess - diff) < secret_number{
+        return "Side down!".to_string();
+    }
+    return "Side up".to_string();
+}
+
 fn main() {
     println!("Guess the number!");
 
@@ -29,8 +45,14 @@ fn main() {
         count += 1;            
 
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
+            Ordering::Less => {
+                let side = check_side_min(secret_number,guess);
+                println!("Too small! {}", side);
+            },
+            Ordering::Greater => {
+                let side = check_side_max(secret_number,guess);
+                println!("Too big! {}", side);
+            },
             Ordering::Equal => {
                 println!("You win!");
                 break;
