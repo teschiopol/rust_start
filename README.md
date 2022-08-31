@@ -1,4 +1,5 @@
 ![Build](https://github.com/teschiopol/rust_start/actions/workflows/rust.yml/badge.svg)
+[![CodeFactor](https://www.codefactor.io/repository/github/teschiopol/rust_start/badge)](https://www.codefactor.io/repository/github/teschiopol/rust_start)
 
 # 🚀 Rust_start
 Basic demo and start to learn Rust
